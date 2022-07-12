@@ -1,0 +1,200 @@
+\documentclass[12pt,letterpaper, onecolumn]{exam}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{sidecap}
+\usepackage{tabularx}
+\usepackage{csquotes}
+\usepackage{makecell}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=black,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
+%\usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
+\usepackage[usestackEOL]{stackengine}
+%\setstacktabbedgap{1ex} 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{fadings}
+\def\layersep{2.5cm}
+
+\usepackage{enumitem}
+
+%\usepackage[shortlabels]{enumitem}
+%\usepackage{enumerate}
+\usepackage[lmargin=71pt, tmargin=0.8in]{geometry}  %For centering solution box
+
+% \chead{\hline} % Un-comment to draw line below header
+\thispagestyle{empty}   %For removing header/footer from page 1
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+\begin{document}
+
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\bibliographystyle{IEEEtran}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\let\vec\mathbf
+
+\newlist{mydesc}{description}{1} % create a new list called mydesc, of type "description"
+\setlist[mydesc]{
+  align=left, % use the align-format defined above
+  leftmargin=0pt, % indentation for all the lines
+  labelindent=1em, % horizontal space before label
+  labelsep=0pt
+   % horizontal space after label -- set to zero because we add space via "leftwithbar"
+}
+
+
+
+\begingroup  
+    \centering
+    
+    \LARGE Weekly Report 1-Linear Regression\\[0.5em]
+    \large \today\\[0.5em]
+    \large Ganji Varshitha\par
+    \large AI20BTECH11009\par
+\endgroup
+\rule{\textwidth}{0.4pt}
+\pointsdroppedatright   %Self-explanatory
+\printanswers
+\newcommand\Solution{
+  \textbf{Solution:}\\}
+\newcommand{\myvec}[1]{\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}
+ %Replace "Ans:" with starting keyword in solution box
+
+ \subsection*{Introduction}
+In Regression, we assume the target(i.e dependent) variable is a continuous function of input (independent) variable. When the function is linear in its parameters, it is called Linear Regression.
+\subsection*{Training}
+Let $\vec{x}$ is a D dimensional vector
+\begin{align}
+\hat{f}(\vec{x}) = y(\vec{x}, \vec{w}) ={}& w_0 + w_1x_1 + ... + w_Dx_D
+\end{align}
+We need to estimate $\vec{w}$ inorder to minimise the prediction loss over entire population which is given by
+\begin{align}
+\min_{\vec{w}}\mathbb{E}_{\vec{x},y}\big[L(\hat{f}(\vec{x}),y)\big]
+\end{align}
+If the cost function is mean-squared error ,
+\begin{align}
+\label{der}
+\vec{w}^{*} ={}&  \arg \min_{\vec{w}}||X.\vec{w} - y||^2
+\end{align}
+\textbf{Ordinary Least Squares Method}\\
+Equating the derivative of  $||X\vec{w} - y||^2$ to 0, we get
+\begin{align}
+X^\top X\vec{w} ={}& X^\top y
+\end{align}
+If $X^\top X$ is a positive definite matrix, we get optimal $\vec{w}$  to be
+\begin{align}
+\vec{w}^{*} ={}&(X^\top X)^{-1} X^\top y
+\end{align}
+\textbf{Gradient descent Approach}\\
+We need to initialise weights and declare our hyperparameters which are number of iterations and learning rate.\\
+For MSE error, we compute the gradient of cost function w.r.t the weights and update the weights in order to achieve minimum gradient.
+\begin{align}
+\vec{w}^{(i+1)} ={}& \vec{w}^{i} - \alpha\frac{\partial ||X.\vec{w}^i - y||^2}{\partial \vec{w}^i}\\
+\vec{w}^{(i+1)} ={}& \vec{w}^{i} - \alpha (-X(y-X\vec{w}))
+\end{align}
+We will loop till the minimum error threshold is reached or the gradient does not change on further iterations.
+
+\subsection*{Key points}
+\begin{itemize}
+\item The algorithm works if the dependent variables are linearly related with independent variables.
+\item It assumes the error terms to have constant variance and no correlation between one another.
+\item Since we need to compute the gradients, there is need to normalize the training data so that it does not take longer time.
+\item Learning rate decides how fast the algorithm converges.
+\item The model tends to overfit if there are many features in the dataset. Besides, there is a high chance correlation between some input variables.
+\end{itemize}
+
+\subsection*{Questions}
+
+\begin{questions}
+\question[] Bias and variance in linear regression model are \rule{2cm}{0.15mm} related.\\
+\begin{oneparchoices}
+    \choice directly
+    \choice inversely
+  \end{oneparchoices} 
+  \question[] Explain the geometric and probabilistic interpretation of the model.
+  \question[] Do the missing values in the data affect the model?\\
+  \begin{oneparchoices}
+    \choice Yes
+    \choice No
+  \end{oneparchoices} 
+  \question[] Is the model generative or discriminative? Explain why.
+  \question[] When to prefer gradient descent approach to ordinary least squares method?
+  \question[] Which error function is sensitive to outliers?
+  \begin{choices}
+  \choice MSE(Mean squared error)
+  \choice MAE(Mean absolute error)
+  \end{choices}
+\end{questions}
+
+
+
+
+
+
+
+
+
+\end{document}
