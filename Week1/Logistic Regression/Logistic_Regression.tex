@@ -4,6 +4,7 @@
 \usepackage{sidecap}
 \usepackage{tabularx}
 \usepackage{csquotes}
+\usepackage{datetime}
 \usepackage{makecell}
 \usepackage{hyperref}
 \hypersetup{
@@ -111,7 +112,7 @@
     \centering
     
     \LARGE Weekly Report 1-Logistic Regression\\[0.5em]
-    \large \today\\[0.5em]
+    
     \large Ganji Varshitha\par
     \large AI20BTECH11009\par
 \endgroup
@@ -119,7 +120,7 @@
 \pointsdroppedatright   %Self-explanatory
 \printanswers
 \newcommand\Solution{
-  \textbf{Solution:}\\}
+  \textbf{Solution:}\hspace{3mm}}
 \newcommand{\myvec}[1]{\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}
  %Replace "Ans:" with starting keyword in solution box
 
@@ -202,20 +203,41 @@ class LogisticRegression():
 \subsection*{Questions}
 
 \begin{questions}
-\question[]Parameters of Logistic regression model are estimated using maximum likelihood estimation(MLE). State true or false.
-\question[]Logit function gives \rule{2cm}{0.15mm}of output variable.
+\question[]Parameters of Logistic regression model are estimated using maximum likelihood estimation(MLE). State true or false.\\
+\begin{Solution}
+True
+  \end{Solution}
+\question[]Logit function gives \rule{2cm}{0.15mm} of output variable.\\
+\begin{Solution}
+Probability
+  \end{Solution}
 \question[] Does the probability sum equal to 1 for sigmoid function in Logistic regression?
 \begin{choices}
 \choice Yes, always.
 \choice Not always.
 \end{choices}
-\question[] What can be done to avoid over-fitting in the model?
-\question[] Which metric should be used to compare the logistic regression model output to the target variable?\\
+\begin{Solution}
+B. Not always
+  \end{Solution}
+\question[] What can be done to avoid over-fitting in the model?\\
+\begin{Solution}
+\newline
+Complex models often overfit the data. It can arise when there are many parameters relative to the dimensions of the input or if the input has many dimensions and is sparse.\\
+Regularization is one of the best ways to prevent overfitting. Since we use L2 norm in the bias term, we also call it L2 regularization.
+We penalize large values of $\vec{w}$ by modifying the log likelihood as follows:
+\begin{align}
+\vec{w} = {}& \arg \max_{\vec{w}} \sum_{l} \text{ln} P(y^l|\vec{x}^l,\vec{w}) - \frac{\lambda}{2}||\vec{w}||^2
+\end{align}
+\end{Solution}
+\question[] Which metric should not be used to compare the logistic regression model output to the target variable?\\
 \begin{oneparchoices}
 \choice AUC-ROC curve
 \choice Logloss
 \choice MSE
-\end{oneparchoices}
+\end{oneparchoices}\\
+\begin{Solution}
+C. MSE
+  \end{Solution}
 \end{questions}
 
 

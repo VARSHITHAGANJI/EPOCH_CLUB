@@ -111,7 +111,7 @@
     \centering
     
     \LARGE Weekly Report 1-Decision Tree \\[0.5em]
-    \large \today\\[0.5em]
+
     \large Ganji Varshitha\par
     \large AI20BTECH11009\par
 \endgroup
@@ -119,7 +119,7 @@
 \pointsdroppedatright   %Self-explanatory
 \printanswers
 \newcommand\Solution{
-  \textbf{Solution:}\\}
+  \textbf{Solution:}\hspace{3mm}}
 \newcommand{\myvec}[1]{\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}
  %Replace "Ans:" with starting keyword in solution box
 
@@ -152,6 +152,9 @@ If the node is not pure, we recursively split to decrease the impurity of the no
  $\acute{I_m}$ is the expected reduction in impurity after split which is known as \\\textbf{Information Gain}.\\
  $\therefore$ We need to chose attribute which maximises the information gain at each split.\\
 Other common measure of impurity is gini index.
+\begin{align}
+\text{Gini index } = {}& 1-\sum_{j= 1}^c p_j^2
+\end{align}
 \section*{Key points}
 \begin{itemize}
 \item The algorithm does not work well for linear data but if the relationship between input variable and target is non linear or complex, it will outperform the linear models.
@@ -171,9 +174,7 @@ To reduce overfitting, we prune the decision tree.It can be done in 2 ways:
 \item Pre-pruning : We declare max depth and stop the node to split and make it a leaf node.
 \item Post-pruning: Pruning the sub trees after generating the whole tree. One common way is to prune the lower ends of tree that result in least information gain.
 \end{itemize}
-\begin{align}
-\text{Gini index } = {}& 1-\sum_{j= 1}^c p_j^2
-\end{align}
+
 \begin{figure}[!h]
 \caption{Algorithm to generate decision tree}
 \centering
@@ -189,11 +190,17 @@ To reduce overfitting, we prune the decision tree.It can be done in 2 ways:
     \choice Pre-pruning is faster, post-pruning is accurate
     \choice Post-pruning is faster, pre-pruning is accurate
   \end{choices} 
+  \begin{Solution}
+  A. Pre-pruning is faster, post-pruning is accurate
+  \end{Solution}
   \question[] Information gain \rule{2cm}{0.15mm} at each node.
   \begin{choices}
     \choice Maximised
     \choice Minimised
   \end{choices} 
+  \begin{Solution}
+  A. Maximised
+  \end{Solution}
  \question[]Let $\phi(p_1,p_2)$ be the function measuring impurity of a split. Which of the following is false?
    \begin{choices}
     \choice $\phi(0,1)=\phi(1,0) = 0$
@@ -201,16 +208,25 @@ To reduce overfitting, we prune the decision tree.It can be done in 2 ways:
     \choice $\phi(p,1-p)$  is decreasing in p on [0,1/2]
     \choice $\phi(p,1-p)$  is decreasing in p on [1/2,1]
   \end{choices} 
+  \begin{Solution}
+  C.  $\phi(p,1-p)$  is decreasing in p on [0,1/2]
+  \end{Solution}
   \question[] Do we require normalization of features while training the model?\\
   \begin{oneparchoices}
     \choice Yes
     \choice No
-  \end{oneparchoices}
+  \end{oneparchoices}\\
+  \begin{Solution}
+  B. No
+  \end{Solution}
   \question[] If the measure of impurity is gini index,the feature with \rule{2cm}{0.15mm} gini index is selected.\\
   \begin{oneparchoices}
     \choice Highest
     \choice Least
-  \end{oneparchoices}
+  \end{oneparchoices}\\
+  \begin{Solution}
+  B. Least
+  \end{Solution}
   
 \end{questions}
 
