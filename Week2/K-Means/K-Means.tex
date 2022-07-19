@@ -140,6 +140,17 @@ It is a parametric method where we need to specify the number of clusters K, whi
 It can be seen as Expectation-Maximisation problem where the E-step is assigning the data points to the closest cluster and the M-step is computing the centroid of each cluster.\\
 It minimises the intra-cluster sum of squared distance from its centroid and keeps the clusters distant from each other.
 
+\subsection*{Evaluation metric}
+Since it is an unsupervised learning model, we don't have ground truth values to evaluate its performance. Hence, we select the model with a K value which minimises sum of squared distances between data points and its centroids.\\
+When SSE is plotted against K, select the K where the graph flatten out and forms an elbow. This method is referred to as elbow method.
+
+\subsection*{ Key points}
+\begin{itemize}
+\item The algorithm clusters the data into distinct sub groups which will not work for overlapping clusters.
+\item Normalization is required as it deals with distances.
+\item It assumes spherical shapes of clusters with center as  centroid and fails in case of complex designs or even elliptical shape.
+\end{itemize}
+
 
 
 

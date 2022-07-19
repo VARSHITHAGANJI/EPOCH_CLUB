@@ -165,6 +165,82 @@ the predictions given by the classifiers S.
 \phi(x,P) = {}& \mathbb{E}_s(\phi(x,S_k)))
 \end{align}
 
+\begin{lstlisting}[language=Python, caption=Random Forest Code]
+
+class Random_Forest():
+  def __init__(self,n_trees, bootstrap_samples , n_features):
+    '''Constructor'''
+    self.n_trees = n_trees
+    self.bootstrap_samples = bootstrap_samples
+    self.n_features = n_features
+
+  # Function to get a subset of data with replacement
+  def Subset(self,data):
+    indices = np.random.choice(data.shape[0], size=self.bootstrap_samples ,replace = True)
+    train_data = data[indices]
+    OOB_data = np.delete(data,indices,0)
+    return train_data,OOB_data
+
+  def get_label(self,data):
+    label_column = data[:, -1]
+    unique_classes, counts_unique_classes = np.unique(label_column, return_counts=True)
+
+    index = counts_unique_classes.argmax()
+    classification = unique_classes[index]
+    
+    return classification
+
+  def test_error(self,y_true, y_pred):
+    misclassified = 0
+    for i in range(len(y_true)):
+      if y_pred[i] != y_true[i]:
+        misclassified += 1
+    return misclassified / len(y_true)
+
+  def learn_trees(self,data):
+    # Creating an empty list for storing trees
+    trees_list = []
+    Decision_tree = Decision(self.n_features)
+    for i in range(self.n_trees):
+      train,OOB_data = self.Subset(data)
+      tree_learnt = Decision_tree.learn(train,{},0)
+      trees_list.append(tree_learnt)
+    return trees_list
+
+  def OOB_score(self,data):
+    OOB_error= []
+    Decision_tree = Decision(self.n_features)
+    for i in range(self.n_trees):
+      train,OOB_data = self.Subset(data)
+      tree_learnt = Decision_tree.learn(train,{},0)
+      
+      Y_oob = Decision_tree.predict_test(OOB_data,tree_learnt)
+      OOB_error.append(self.test_error(OOB_data[:,-1],Y_oob))
+    OOB_score = np.mean(OOB_error)
+    return OOB_score
+
+
+   # Bagging - most important part
+  def predict(self,test,trees_list):
+    Decision_tree = Decision(self.n_features)
+    len_samples = len(test)
+    Preds_all = np.empty((len(trees_list),len_samples))
+    Preds = []
+    for i in range(len(trees_list)):
+      predict = Decision_tree.predict_test(test,trees_list[i])
+      Preds_all[i]=predict
+    
+    
+    
+    for p in range(len_samples):
+      list1 = list(Preds_all[:,p])
+      
+      Preds.append(max(set(list1), key=list1.count))
+
+    
+    return Preds
+
+\end{lstlisting}
 
 
 

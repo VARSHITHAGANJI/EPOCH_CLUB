@@ -163,7 +163,50 @@ Euclidean distance is the most common metric used. Besides, there are Manhattan,
 
 
 
+\subsection*{Key points}
+\begin{itemize}
+\item Since calculating distances involve all the features, the scale of the features may affect the outcome as one feature may dominate the rest. Therefore, we need to normalize the features.
+\item The computational cost is very high as it involves calculating distances from all the training data points.
+\item Training is fast whereas classification task is time consuming.
+\item After finding the optimal value of K, the model is robust to outliers.
+\end{itemize}
 
+\subsection*{Questions}
+
+\begin{questions}
+\question[] Does KNN work for large dataset?
+\begin{choices}
+\choice Yes
+\choice No
+\end{choices}
+\begin{Solution}
+B. No
+\end{Solution}
+\question[] State Manhattan distance formula.\\
+\begin{Solution}
+\begin{align*}
+D_m(x,y) = {}& \sum_{i=1}^n |x_i-y_i|
+\end{align*}
+\end{Solution}
+\question[] What can be done to overcome curse of dimensionality?\\
+\begin{Solution}
+As number of dimensions increases, size of data space increases. This reduces the density of data. It can be avoided by reducing the number of features by dimensionality reduction.
+\end{Solution}
+\question[] Hamming distance is useful for \rule{2cm}{0.15mm}
+\begin{choices}
+\choice Numerical features
+\choice Categorical features
+\end{choices}
+\begin{Solution}
+Since hamming distance tells number of indifferent features, it is helpful in categorical input. 
+\end{Solution}
+\question[] Time complexity of the algorithm is \rule{2cm}{0.15mm}\\
+\begin{Solution}
+Assume K cluster for N data points having D dimensions.\\
+Time complexity is:
+$\mathcal{O}(\#\text{iter}*K*N*D)$
+\end{Solution}
+\end{questions}
 
 
 
