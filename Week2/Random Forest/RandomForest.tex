@@ -1,0 +1,239 @@
+\documentclass[12pt,letterpaper, onecolumn]{exam}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{sidecap}
+\usepackage{tabularx}
+\usepackage{csquotes}
+\usepackage{makecell}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=black,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
+%\usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
+\usepackage[usestackEOL]{stackengine}
+%\setstacktabbedgap{1ex} 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{fadings}
+\def\layersep{2.5cm}
+
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%\usepackage[shortlabels]{enumitem}
+%\usepackage{enumerate}
+\usepackage[lmargin=71pt, tmargin=0.8in]{geometry}  %For centering solution box
+
+% \chead{\hline} % Un-comment to draw line below header
+\thispagestyle{empty}   %For removing header/footer from page 1
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+\begin{document}
+
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\bibliographystyle{IEEEtran}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\let\vec\mathbf
+
+\newlist{mydesc}{description}{1} % create a new list called mydesc, of type "description"
+\setlist[mydesc]{
+  align=left, % use the align-format defined above
+  leftmargin=0pt, % indentation for all the lines
+  labelindent=1em, % horizontal space before label
+  labelsep=0pt
+   % horizontal space after label -- set to zero because we add space via "leftwithbar"
+}
+
+
+
+\begingroup  
+    \centering
+    
+    \LARGE Weekly Report 2 - Random Forest\\[0.5em]
+    
+    \large Ganji Varshitha\par
+    \large AI20BTECH11009\par
+\endgroup
+\rule{\textwidth}{0.4pt}
+\pointsdroppedatright   %Self-explanatory
+\printanswers
+\newcommand\Solution{
+  \textbf{Solution:}\\}
+\newcommand{\myvec}[1]{\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}
+ %Replace "Ans:" with starting keyword in solution box
+
+ \subsection*{Introduction}
+Random Forest is an ensemble classifier which combines multiple classifiers to achieve better accuracy. It trains several models using bootstrapped dataset and selects the majority vote for classification problems and average for regression problems. 
+
+
+
+\subsection*{Algorithm}
+\begin{algorithm}
+\caption{Random Forest Algorithm}\label{cap}
+\begin{algorithmic}
+
+\State Given a training set S
+\For{\texttt{i $=$ 1 to k}}
+        \State \texttt{Build subset S$_i$ by sampling with replacement from S}
+        \State \texttt{Learn tree T$_i$
+from S$_i$}
+\For{\texttt{each node}}
+\State \texttt{Choose best split from random subset of F features}
+\State \texttt{Each tree grows to the largest extent, and no pruning}
+\EndFor
+      \EndFor
+\State Make predictions according to majority vote of the set of k trees.
+\end{algorithmic}
+\end{algorithm}
+
+The value of F needs to be constant during the algorithm and it should be very less compared to total number of features M.
+\\Possible values of F are $\frac{1}{2}\sqrt{M},\sqrt{M},2\sqrt{M}$.
+
+
+
+\subsection*{Why does bagging work?}
+Decision trees are prone to overfit which results in high variance of the model. Bagging reduces the variance of the model.\\
+Let S be the training dataset. \\
+Let ${S_k}$ be a sequence of training sets containing a sub-set of S.\\
+ Let P be the underlying distribution of S.\\
+Bagging replaces the prediction of the model with the majority of 
+the predictions given by the classifiers S.
+\begin{align}
+\phi(x,P) = {}& \mathbb{E}_s(\phi(x,S_k)))
+\end{align}
+
+
+\begin{itemize}
+\item The algorithm works if the dependent variables are linearly related with independent variables.
+\item It assumes the error terms to have constant variance and no correlation between one another.
+\item Since we need to compute the gradients, there is need to normalize the training data so that it does not take longer time.
+\item Learning rate decides how fast the algorithm converges.
+\item The model tends to overfit if there are many features in the dataset. Besides, there is a high chance correlation between some input variables.
+\end{itemize}
+
+\subsection*{Questions}
+
+\begin{questions}
+\question[] Bias and variance in linear regression model are \rule{2cm}{0.15mm} related.\\
+\begin{oneparchoices}
+    \choice directly
+    \choice inversely
+  \end{oneparchoices} \\
+  \begin{Solution}
+  B. inversely
+  \end{Solution}
+  \question[] Explain the geometric and probabilistic interpretation of the model.\\
+  \begin{Solution}
+  Geometric Interpretation:\\
+  The least-squares regression function is obtained by finding the orthogonal projection of the output vector y onto the subspace spanned by ${x_1,x_2,x_3,\cdots,x_d }$.\\
+  Probabilistic Interpretation:\\
+  Let us assume the target variable be given by the deterministic function with added gaussian noise. This gives
+  \begin{align}
+  p(y|X, \vec{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n|\vec{w}^\top x_n,\beta^{-1})
+  \end{align}
+  where $\beta$ is inverse variance of zero mean Gaussian random variable. We estimate the probability model using maximum likelihood which is same as minimising the least squares error.
+  \begin{align}
+  \arg \max_{\vec{w}} L = \arg \min_{\vec{w}} E
+  \end{align}
+  \end{Solution}
+  \question[] Do the missing values in the data affect the model?\\
+  \begin{oneparchoices}
+    \choice Yes
+    \choice No
+  \end{oneparchoices} \\
+  \begin{Solution}
+  B. No
+  \end{Solution}
+  \question[] Is the model generative or discriminative? Explain why.
+  \\
+  \begin{Solution}
+  Linear regression is a discriminative model. As seen in the probabilistic interpretation of the model above, we learn the parameters that maximises the conditional probability P$(Y|X)$. This is the basic definition of discriminative model where we assume functional form of P$(Y|X)$ and estimate its parameters. 
+  \end{Solution}
+  \question[] When to prefer gradient descent approach to ordinary least squares method?\\
+  \begin{Solution}
+  Time complexity of least squares method is $\mathcal{O}(n^3)$ whereas time complexity of gradient descent is $\mathcal{O}(n)$.
+  Gradient descent is preferred to ordinary least squares method when n i.e number of input features is greater than 10,000.
+  
+  \end{Solution}
+  \question[] Which error function is sensitive to outliers?
+  \begin{choices}
+  \choice MSE(Mean squared error)
+  \choice MAE(Mean absolute error)
+  \end{choices}
+  \begin{Solution}
+  A. MSE
+  \end{Solution}
+\end{questions}
+
+
+
+
+
+
+
+
+
+\end{document}
