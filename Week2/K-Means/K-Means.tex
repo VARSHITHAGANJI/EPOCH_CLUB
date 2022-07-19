@@ -110,7 +110,7 @@
 \begingroup  
     \centering
     
-    \LARGE Weekly Report 2- K-Means\\[0.5em]
+    \LARGE Weekly Report 2 - K-Means\\[0.5em]
     
     \large Ganji Varshitha\par
     \large AI20BTECH11009\par
@@ -139,73 +139,6 @@ It is a parametric method where we need to specify the number of clusters K, whi
 
 It can be seen as Expectation-Maximisation problem where the E-step is assigning the data points to the closest cluster and the M-step is computing the centroid of each cluster.\\
 It minimises the intra-cluster sum of squared distance from its centroid and keeps the clusters distant from each other.
-
-
-\subsection*{Key points}
-\begin{itemize}
-\item The algorithm works if the dependent variables are linearly related with independent variables.
-\item It assumes the error terms to have constant variance and no correlation between one another.
-\item Since we need to compute the gradients, there is need to normalize the training data so that it does not take longer time.
-\item Learning rate decides how fast the algorithm converges.
-\item The model tends to overfit if there are many features in the dataset. Besides, there is a high chance correlation between some input variables.
-\end{itemize}
-
-\subsection*{Questions}
-
-\begin{questions}
-\question[] Bias and variance in linear regression model are \rule{2cm}{0.15mm} related.\\
-\begin{oneparchoices}
-    \choice directly
-    \choice inversely
-  \end{oneparchoices} \\
-  \begin{Solution}
-  B. inversely
-  \end{Solution}
-  \question[] Explain the geometric and probabilistic interpretation of the model.\\
-  \begin{Solution}
-  Geometric Interpretation:\\
-  The least-squares regression function is obtained by finding the orthogonal projection of the output vector y onto the subspace spanned by ${x_1,x_2,x_3,\cdots,x_d }$.\\
-  Probabilistic Interpretation:\\
-  Let us assume the target variable be given by the deterministic function with added gaussian noise. This gives
-  \begin{align}
-  p(y|X, \vec{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n|\vec{w}^\top x_n,\beta^{-1})
-  \end{align}
-  where $\beta$ is inverse variance of zero mean Gaussian random variable. We estimate the probability model using maximum likelihood which is same as minimising the least squares error.
-  \begin{align}
-  \arg \max_{\vec{w}} L = \arg \min_{\vec{w}} E
-  \end{align}
-  \end{Solution}
-  \question[] Do the missing values in the data affect the model?\\
-  \begin{oneparchoices}
-    \choice Yes
-    \choice No
-  \end{oneparchoices} \\
-  \begin{Solution}
-  B. No
-  \end{Solution}
-  \question[] Is the model generative or discriminative? Explain why.
-  \\
-  \begin{Solution}
-  Linear regression is a discriminative model. As seen in the probabilistic interpretation of the model above, we learn the parameters that maximises the conditional probability P$(Y|X)$. This is the basic definition of discriminative model where we assume functional form of P$(Y|X)$ and estimate its parameters. 
-  \end{Solution}
-  \question[] When to prefer gradient descent approach to ordinary least squares method?\\
-  \begin{Solution}
-  Time complexity of least squares method is $\mathcal{O}(n^3)$ whereas time complexity of gradient descent is $\mathcal{O}(n)$.
-  Gradient descent is preferred to ordinary least squares method when n i.e number of input features is greater than 10,000.
-  
-  \end{Solution}
-  \question[] Which error function is sensitive to outliers?
-  \begin{choices}
-  \choice MSE(Mean squared error)
-  \choice MAE(Mean absolute error)
-  \end{choices}
-  \begin{Solution}
-  A. MSE
-  \end{Solution}
-\end{questions}
-
-
-
 
 
 
