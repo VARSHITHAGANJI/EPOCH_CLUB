@@ -23,7 +23,8 @@
 \def\layersep{2.5cm}
 
 \usepackage{enumitem}
-
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 %\usepackage[shortlabels]{enumitem}
 %\usepackage{enumerate}
 \usepackage[lmargin=71pt, tmargin=0.8in]{geometry}  %For centering solution box
@@ -142,14 +143,24 @@ K-Means is an unsupervised learning algorithm which performs partitioned cluster
 
 It is a parametric method where we need to specify the number of clusters K, which we want to divide the data into.
 \\It is a simple and iterative algorithm described as follows:
-\begin{mydesc}
- \item[\hspace{2cm}]\textmd{Initialize K random points from the dataset as centroids}
-  \item[\hspace{2cm}]\textmd{\textbf{repeat}}
-  \item[\hspace{3cm}]\textmd{Form K clusters by assigning all points to the closest centroid}
-  \item[\hspace{3cm}]\textmd{Recompute the centroid of each cluster}
-  \item[\hspace{2cm}]\textmd{\textbf{until} The centroids don't change}
- \end{mydesc}
 
+\begin{algorithm}
+\caption{Lloyd  Algorithm for K-Means}\label{cap}
+\begin{algorithmic}
+
+\State Initialize K random points from the dataset as centroids
+
+\Repeat
+
+\State Form K clusters by assigning all points to the closest centroid
+
+\State Recompute the centroid of each cluster
+\Until{convergence}
+
+\end{algorithmic}
+\end{algorithm}
+
+The original algorithm involves minimising sum of squared error.\\
 It can be seen as Expectation-Maximisation problem where the E-step is assigning the data points to the closest cluster and the M-step is computing the centroid of each cluster.\\
 It minimises the intra-cluster sum of squared distance from its centroid and keeps the clusters distant from each other.
 
@@ -251,7 +262,7 @@ while (error > epsilon):
 
 \subsection*{Questions}
 \begin{questions}
-\question[] Does the cost function of the algorithm has an optimized solution?
+\question[] Does the cost function of the algorithm has an optimized solution?\\
 \begin{Solution}
 Objective function is given by
 \begin{align*}
@@ -267,6 +278,19 @@ Since most of the convergence takes place in first few iterations, stopping cond
 \centering
 \includegraphics[width = 0.6\textwidth]{../images/k means.png}
 \end{figure}
+
+\end{Solution}
+\question[] Increasing K will reduce SSE. State True or False.\\
+\begin{Solution}
+True
+\end{Solution}
+\question[] State the main difference between K-Means and KNN. \\
+\begin{Solution}
+KNN is supervised learning method whereas K-Means is unsupervised learning method.
+\end{Solution}
+\question[] Does the algorithm guarantees to converge to a global optima?\\
+\begin{Solution}
+No, it only converges to a local minimum.
 
 \end{Solution}
 \end{questions}
