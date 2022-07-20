@@ -165,6 +165,10 @@ the predictions given by the classifiers S.
 \phi(x,P) = {}& \mathbb{E}_s(\phi(x,S_k)))
 \end{align}
 
+\subsection*{Out of bag(OOB) error}
+It is one of the validation techniques in the model to reduce variance. We take one-third of the training data and bootstrap the remaining samples to train the decision trees.\\
+OOB score is average error of the model when tested using out of bag samples.\\This gives us information about generalization error which is said to reduce to 33$\%$ when number of trees is 8.
+
 \begin{lstlisting}[language=Python, caption=Random Forest Code]
 
 class Random_Forest():
@@ -241,6 +245,39 @@ class Random_Forest():
     return Preds
 
 \end{lstlisting}
+
+\subsection*{Key Points}
+\begin{itemize}
+\item Since the features used in training each tree are taken randomly and are much less than the total number of features, the correlation between trees is reduced and improves the accuracy.
+\item Decision trees are sensitive to training data whereas Random forest avoids using bootstrapping the samples. This is very useful in large dataset as we use random subsets of training data to learn multi classifiers.
+\item Trains fast but prediction may be slow with large dataset.
+\item Hyperparameters include number of estimators, number of features, number of bootstrap samples.
+\end{itemize}
+
+\subsection*{Questions}
+\begin{questions}
+\question[] Bagging involves samples with replacement. State True or False.\\
+\begin{Solution}
+True.
+\end{Solution}
+\question[] The correlations between predictions of individual trees of bagged standard decision trees  is expected to be lesser than predictions of individual trees of a random forest.
+State True or False.\\
+\begin{Solution}
+False.
+\end{Solution}
+\question[] How is feature importance calculated in random forest?\\
+\begin{Solution}
+Feature importance is calculated as the decrease in node impurity weighted by the probability of reaching that node.
+\end{Solution}
+\question[] Is feature scaling required for the model?\\
+\begin{Solution}
+No, as we do not require it in decision trees.
+\end{Solution}
+\question[] Why are decision trees not pruned in the training phase?\\
+\begin{Solution}
+Since each tree has less number of samples than the entire dataset, it will not overfit. Therefore, we do not require pruning.
+\end{Solution}
+\end{questions}
 
 
 
