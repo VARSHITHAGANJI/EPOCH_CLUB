@@ -30,8 +30,21 @@
 
 % \chead{\hline} % Un-comment to draw line below header
 \thispagestyle{empty}   %For removing header/footer from page 1
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.95}
 
 \usepackage{listings}
+\lstset{
+    basicstyle=\footnotesize\ttfamily,
+    escapechar=¢,
+    language=python,
+    frame=single,
+    frameround=tttt,
+    showstringspaces=false,
+    backgroundcolor=\color{light-gray}
+}
+\newcommand*{\ipythonprompt}[1]{\makebox[0pt][r]{\textbf{In [#1]:}\hspace{1em}}}
+
 \usepackage{xcolor}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -40,7 +53,7 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
+    backgroundcolor=\color{light-gray},   
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
@@ -141,15 +154,122 @@ It can be seen as Expectation-Maximisation problem where the E-step is assigning
 It minimises the intra-cluster sum of squared distance from its centroid and keeps the clusters distant from each other.
 
 \subsection*{Evaluation metric}
+\textbf{SSE - Elbow method}\\
 Since it is an unsupervised learning model, we don't have ground truth values to evaluate its performance. Hence, we select the model with a K value which minimises sum of squared distances between data points and its centroids.\\
 When SSE is plotted against K, select the K where the graph flatten out and forms an elbow. This method is referred to as elbow method.
+\newpage
+\begin{figure}[!h]
+\caption{Elbow method plot example}
+\centering
+\includegraphics[width = 0.4\textwidth]{../images/elbowmethod.png}
+\end{figure}
+
+\subsection*{Code Example}
+Generated data using gaussian distribution and took user defined values for K and input dimensions.
+
+\subsubsection*{Data generation}
+\begin{lstlisting}
+¢\ipythonprompt{1}¢ 
+NUM_PTS=3
+#Accepting input dimensions(p) and number of clusters(k)
+Y=np.empty((p,k*NUM_PTS),int)
+p=int(input("Enter input dimensions: "))
+k=int(input("Enter number of clusters:"))
+#contains the data points of all the clusters
+#declaring positive semi definite covariance matrix
+cov=[]
+y=[]
+
+#Generating clusters using Gaussian distribution
+for i in range(k):
+  #declaring mean matrix
+  mean=np.random.randint(i+1,p+i+1,p,int)
+  cov=np.diag([i for j in range(p)])
+  y=np.random.multivariate_normal(mean,cov,NUM_PTS).T
+  Y=np.concatenate((Y,y),axis=1)
+\end{lstlisting} 
+
+\subsubsection*{Declaring stopping condition and implementing the algorithm}
+
+\begin{lstlisting} 
+¢\ipythonprompt{2}¢   
+#Setting stopping condition
+#epsilon = 0.001
+# Initialize error to a large value
+#error = 10000.0
+# Initialize centroids - assume 4 of them from a 2D Gaussian distribution (zero mean, unit variance)
+D = np.random.multivariate_normal(np.zeros(p), np.identity(p), k).T 
+# Initialize iteration count to 0
+count = 0
+# Initialize cluster size to 0
+num=np.zeros(k)
+# Initialize centroid update to 0
+centr= np.zeros((p, k))
+
+#Initialise distance_vector
+distance_vector=[]
+
+
+while (error > epsilon):
+  
+  # Update clusters based on distance
+  for idx in range(k*NUM_PTS):
+    cur_y = Y[:,idx]
+    print(cur_y)
+    for j in range(k):
+      cur_d=D[:,j]
+      d1=np.sqrt(np.sum((cur_y-cur_d)**2))
+      distance_vector.append(d1)
+    # Find closest centroid 
+    min_idx = distance_vector.index(np.min(distance_vector))
+    for i in range(k):
+      if (min_idx==i):
+        num[i]+=1
+        for j in range(p):
+          centr[j,i]+=cur_y[j]
+          if (num[i]!=0):
+            centr[j,i]=centr[j,i]/num[i]
+  
+  error=np.sqrt(np.sum((centr-D)**2))
+  for i in range(k):
+    for j in range(p):
+      D[j,i]=centr[j,i] 
+  count+=1 
+\end{lstlisting}
+
+
 
 \subsection*{ Key points}
 \begin{itemize}
 \item The algorithm clusters the data into distinct sub groups which will not work for overlapping clusters.
 \item Normalization is required as it deals with distances.
 \item It assumes spherical shapes of clusters with center as  centroid and fails in case of complex designs or even elliptical shape.
+\item The algorithm works well with large datasets and easy to implement.
+\item The centroids are sensitive to outliers.
+\item The algorithm is stochastic as the clusters formed depend on centroid initialisation.
 \end{itemize}
+
+\subsection*{Questions}
+\begin{questions}
+\question[] Does the cost function of the algorithm has an optimized solution?
+\begin{Solution}
+Objective function is given by
+\begin{align*}
+\arg \min \sum_{i=1}^K \sum_{x\in S_i} ||x - C_i||^2
+\end{align*}
+This function is a NP hard problem. Therefore, we only use Lloyd algorithm to stop iterating if the problem converges.\\
+Since most of the convergence takes place in first few iterations, stopping condition is changed to $'$Until relatively few points change clusters$'$.
+\end{Solution}
+\question[] Illustrate an example where K means fails when clusters have complex design.\\
+\begin{Solution}
+\begin{figure}[!h]
+\caption{K means for non spherical clusters}
+\centering
+\includegraphics[width = 0.6\textwidth]{../images/k means.png}
+\end{figure}
+
+\end{Solution}
+\end{questions}
 
 
 
