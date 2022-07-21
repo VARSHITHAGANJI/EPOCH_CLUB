@@ -141,8 +141,43 @@ Since $P(A_1, A_2,\cdots A_n)$ is same for all values of C, we can omit the marg
 \begin{align}
 \hat{C} = \arg \max_{C} (P(A_1|C) P(A_2|C) \cdots P(A_n|C))P(C)
 \end{align}
-This is called Maximum A Posteriori estimation.
+This is called Maximum A Posteriori estimation.\\
+We also assume all the features contribute equally to the outcome.
+\subsection*{Types of Naive Bayes Classifier}
+\subsubsection*{Multinomial Naive Bayes}
+It is mostly used in document classification where the feature values include the frequencies of words present in the document.
+\subsubsection*{Bernoulli Naive Bayes}
+It involves Bernoulli distribution. The feature values involve binary values. It is used in spam filtration and to find whether a word is present in the document.\\ The decision rule is based on
+\begin{align}
+P(x_i \mid y) = P(i \mid y) x_i + (1 - P(i \mid y)) (1 - x_i)
+\end{align}
+\subsubsection*{Gaussian Naive Bayes}
+The feature values are continuous values and are assumed to be sampled from Gaussian distribution. We use maximum likelihood to estimate the parameters of the distribution with the given data. Using the probability distribution, conditional probability is given by
+\begin{align}
+P(x_i\mid y) = {}& \frac{1}{\sqrt{2\pi \sigma_y^2}}\exp\Big(-\frac{(x_i - \mu_y)^2}{2 \sigma_y^2}\Big)
+\end{align}
+\subsection*{Key points}
+\begin{itemize}
+\item The assumptions made in the algorithm does not always hold true in real-life problems.
+\item It is robust to isolated noise points and irrelevant attributes.
+\item To prevent floating point underflow, we sum logs of probabilities rather than multiplying.\\ Class with highest final un-normalized log probability score is still 
+the most probable.
+\item Algorithm gives probability distribution over all classes.
+\item Since the algorithm is generative, we can handle missing data by ignoring the instance during probability estimation.
+\end{itemize}
+\subsection{Questions}
+\begin{questions}
+\question[] Naive Bayes comes under \rule{2.5cm}{0.15mm} learning.
+\begin{choices}
+\choice Inductive
+\choice Transductive
+\end{choices}
+\begin{Solution}
+A. Inductive
+\end{Solution}
 
+
+\end{questions}
 
 
 
