@@ -23,6 +23,9 @@
 \def\layersep{2.5cm}
 
 \usepackage{enumitem}
+\usepackage{graphicx}
+
+\usepackage{subcaption}
 
 %\usepackage[shortlabels]{enumitem}
 %\usepackage{enumerate}
@@ -110,7 +113,7 @@
 \begingroup  
     \centering
     
-    \LARGE Weekly Report 2- Naive Bayes\\[0.5em]
+    \LARGE Weekly Report 2 - Naive Bayes\\[0.5em]
     
     \large Ganji Varshitha\par
     \large AI20BTECH11009\par
@@ -165,7 +168,7 @@ the most probable.
 \item Algorithm gives probability distribution over all classes.
 \item Since the algorithm is generative, we can handle missing data by ignoring the instance during probability estimation.
 \end{itemize}
-\subsection{Questions}
+\subsection*{Questions}
 \begin{questions}
 \question[] Naive Bayes comes under \rule{2.5cm}{0.15mm} learning.
 \begin{choices}
@@ -175,7 +178,55 @@ the most probable.
 \begin{Solution}
 A. Inductive
 \end{Solution}
+\question[] Write the decision rule in terms of likelihood ratio for binary classification problem.
+\begin{Solution}
+\begin{align*}
+g(x) ={}& \frac{P(C_1 \mid x)}{
+P(C_2 \mid x) }\\
+={}& 
+\frac{P(x \mid C_1)P(C_1)}{P(x \mid C_2)P(C_2)}
+\end{align*}
+The decision rule is\\
+choose $\begin{cases}
+        C_1 & \text{if } g(x) > 1\\
+        C_2 & \text{otherwise } 
+    \end{cases}$
 
+
+
+\end{Solution}
+\question[] Is the model log linear?\\
+\begin{Solution}
+Yes.
+\end{Solution}
+
+\question[] Which of the following distribution has pdf?
+\begin{choices}
+\choice Bernoulli distribution
+\choice Gaussian distribution
+\end{choices}
+\begin{Solution}
+B. Gaussian distribution
+\end{Solution}
+
+\question[] Explain Bayesian networks.\\
+\begin{Solution}
+Bayesian network is a probabilistic graphical model that represents a set of variables and their conditional dependencies via a directed acyclic graph (DAG).
+\begin{figure}[!h]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{../images/Naive_bayes}
+  \caption{Naive Bayesian network}
+
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{../images/Bayesian}
+  \caption{Bayesian network with k dependencies}
+\end{subfigure}
+\end{figure}
+\end{Solution}
 
 \end{questions}
 

@@ -129,10 +129,90 @@
 SVM is a supervised learning model used for both classification and regression. It creates decision boundary which divides the training data into classes, hence making it a discriminative classifier.
 It is non parametric as it does not take any information from the training data.
 
+\subsection*{Algorithm}
+The algorithm creates a decision boundary in n-dimensional plane so as to classify the new points.\\ 
+There are two types of SVM: linear SVM and non-linear SVM.
+\subsubsection*{Linear SVM}
+Goal is to create a straight which separates the points of 2 classes. There are infinite lines which can be drawn. \\
+\textbf{Margin} of the classifier is the width that the boundary could be increased by before hitting a data point.\\
+In order to avoid misclassification we need to maximise the margin of the classifier, i.e we draw a line between the 2 closest points that keeps the other data points separated.\\
+Therefore, the data points that the margin pushes up against are called \textbf{Support Vectors}.\\
+We can formulate the maximum margin problem as quadratic optimization problem.
+\begin{equation}
+\begin{aligned}
+\min_{\vec{w},b} & \hspace{4mm} \frac{1}{2}\vec{w}^\top \vec{w} \\
+\textrm{s.t.   } & y_{i}(\vec{w}^\top \vec{x_i}+b)\geq 1
+\end{aligned}
+\end{equation}
+After computing optimal $\vec{w}$ and b, the classifier is given by
+sign($\vec{w}^\top \vec{x}+b$). We assumed that all the positive points have $\vec{w}^\top \vec{x}+b > 1$ and negative points have 
+$\vec{w}^\top \vec{x}+b < 1$ in the training dataset.\\
+From the knowledge of Primal and duality, we can say that strong duality holds. The Lagrangian of the problem is 
+\begin{equation}
+\begin{aligned}
+L(\vec{w},b,\vec{\alpha}) = {}& \frac{1}{2}||\vec{w}||^2 + \sum_{i = 1}^n \vec{\alpha}_i(1-y_i(\vec{w}^\top \vec{x}_i+b))
+\end{aligned}
+\end{equation}
+Since optimal solution for primal is same as that of dual, solving the dual with KKT conditions, we have 
+\begin{equation}
+\begin{aligned}
+\max_{\vec{\alpha}\geq 0} \hspace{2mm} \min_{\vec{w},b} &\frac{1}{2}||\vec{w}||^2 + \sum_{i = 1}^n \vec{\alpha_i}(1-y_i(\vec{w}^\top \vec{x_i}+b))\\
+\frac{\partial L}{\partial \vec{w}} ={}& 0 \implies  \vec{w} = \sum_{j} \vec{\alpha}_j y_j \vec{x}_j\\
+\frac{\partial L}{\partial b} ={}& 0 \implies \sum_{j} \vec{\alpha}_j y_j=0
+\end{aligned}
+\end{equation}
+Substituting values of $\vec{w},b$ in the dual, we get
+\begin{equation}
+\begin{aligned}
+\max & \sum_{k=1}^R \alpha_k - \frac{1}{2}\sum_{k=1}^R \sum_{l=1}^R \vec{\alpha}_k \vec{\alpha}_l Q_{kl} \text{ where } Q_{kl} = y_k y_l(x_k \cdot x_l)\\ 
+\textrm{ s.t    }& \vec{\alpha}_k \geq 0 \; \; \forall \; k \; \; \; \sum_{k=1}^R \vec{\alpha}_k y_k = 0
+\end{aligned}
+\end{equation}
+Solving the maximisation problem, we get optimal values of $\vec{w},b$ as
+\begin{align}
+\vec{w} = {}& \frac{1}{2} \sum_{k=1}^R \vec{\alpha}_k y_k \vec{x}_k\\
+b = {}& -y_i(y_i(x_i \cdot w)-1)
+\end{align}
+\subsubsection*{Non Linear SVM}
+The best hyperplane is found by using the basis functions i.e kernel functions which classifies in the transformed high dimensional feature space.\\ The dot product in eq (4) is replaced by kernel functions.\\
+Common kernels include polynomial and gaussian kernels.\\
+Polynomial kernel: $k(\vec{x}_i \cdot \vec{x}_j) = (\vec{x}_i \cdot \vec{x}_j)^d$\\
+Gaussian kernel: $k(\vec{x}_i \cdot \vec{x}_j) = \exp \big( -\frac{(\vec{x}_i - \vec{x}_j)^2}{2 \sigma^2} \big)$\\
 
+\subsection*{Questions}
+\begin{questions}
+\question[] Is the entire training set involved in predicting?\\
+\begin{Solution}
+No, only support vectors are used. No other points affect the decision boundary.
+\end{Solution}
 
+\question[] Which data points have non zero alpha weights in the dual problem?
+\begin{choices}
+\choice All the training data points
+\choice Support vectors
+\end{choices}
 
+\begin{Solution}
+B. Support vectors.
+\end{Solution}
 
+\question[] Does SVM ouptut a conditional probability of class?\\
+\begin{Solution}
+No.
+\end{Solution}
+
+\question[] Explain the methods to deal with multi class problem.\\
+\begin{Solution}
+There are two approaches: One vs One and One vs All.\\
+One vs One : For n classes we will have n(n-1)/2 svm's for every pair of classes
+\\ One vs All: We have n svm's where datapoints belonging to one class are selected against rest of the data points.
+\end{Solution}
+
+\question[] Does changing the normalization constant in linear classifier affect the model?\\
+\begin{Solution}
+No.
+\end{Solution}
+\end{questions}
 
 
 
