@@ -1,0 +1,228 @@
+\documentclass[12pt,letterpaper, onecolumn]{exam}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{sidecap}
+\usepackage{tabularx}
+\usepackage{csquotes}
+\usepackage{makecell}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=black,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
+%\usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
+\usepackage[usestackEOL]{stackengine}
+%\setstacktabbedgap{1ex} 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{fadings}
+\def\layersep{2.5cm}
+
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{subcaption}
+
+%\usepackage[shortlabels]{enumitem}
+%\usepackage{enumerate}
+\usepackage[lmargin=71pt, tmargin=0.8in]{geometry}  %For centering solution box
+
+% \chead{\hline} % Un-comment to draw line below header
+\thispagestyle{empty} 
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.95}
+
+\usepackage{listings}
+\lstset{
+    basicstyle=\footnotesize\ttfamily,
+    escapechar=¢,
+    language=python,
+    frame=single,
+    frameround=tttt,
+    showstringspaces=false,
+    backgroundcolor=\color{light-gray}
+}  %For removing header/footer from page 1
+
+
+\newcommand*{\ipythonprompt}[1]{\makebox[0pt][r]{\textbf{In [#1]:}\hspace{1em}}}
+
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{light-gray},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+\begin{document}
+
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\bibliographystyle{IEEEtran}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\let\vec\mathbf
+
+\newlist{mydesc}{description}{1} % create a new list called mydesc, of type "description"
+\setlist[mydesc]{
+  align=left, % use the align-format defined above
+  leftmargin=0pt, % indentation for all the lines
+  labelindent=1em, % horizontal space before label
+  labelsep=0pt
+   % horizontal space after label -- set to zero because we add space via "leftwithbar"
+}
+
+
+
+\begingroup  
+    \centering
+    
+    \LARGE Weekly Report 3 - PCA\\[0.5em]
+    
+    \large Ganji Varshitha\par
+    \large AI20BTECH11009\par
+\endgroup
+\rule{\textwidth}{0.4pt}
+\pointsdroppedatright   %Self-explanatory
+\printanswers
+\newcommand\Solution{
+  \textbf{Solution:}\\}
+\newcommand{\myvec}[1]{\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}
+ %Replace "Ans:" with starting keyword in solution box
+
+ \subsection*{Introduction}
+PCA is a data-visualization and data-preprocessing technique for training data before learning a machine learning model.
+It comes under dimensionality reduction.
+
+\subsection*{Algorithm}
+It can be seen as projecting the original data point vector into a lower dimensional space where information loss is minimum.
+Let us assume projection of $\vec{x}$ in the direction of $\vec{w}$ be $\vec{z} = \vec{w}^\top \vec{x}$.
+\\Maximising variance of $\vec{z}$ gives $\vec{w}$ such that all principal components are orthogonal to each other and $\norm{w}=1$  
+\\
+Let X be matrix where rows corresponding to data points and columns corresponding to features
+\begin{algorithm}
+\caption{PCA algorithm}\label{cap}
+\begin{algorithmic}
+
+\State Standardize the features with 0 mean and 1 variance. Call the new matrix as Z.
+
+
+
+\State Calculate covariance of Z.
+\State Calculate the eigenvalues and eigenvectors of covariance matrix of Z.
+\State Sort the eigenvectors in decreasing order of their corresponding eigenvalues.
+\State Select the optimal number of eigenvectors, say K.
+\State Let P be a matrix with each column corresponds to sorted K eigenvectors. The reduced dataset matrix becomes transform of $(ZP)^\top$
+
+
+\end{algorithmic}
+\end{algorithm}
+
+\subsection*{Code Snippets}
+\begin{lstlisting}
+
+def standardize(data):
+  dataset = data.values
+  A = dataset.T
+  V = np.empty((A.shape))
+  for i in range(A.shape[0]):
+    for j in range(A.shape[1]):
+      V[i,j] = (A[i,j] - np.mean(A[i]))/np.std(A[i])
+  return V.T
+\end{lstlisting} 
+\begin{lstlisting}
+# Standardizing the data
+X = standardize(data)
+# Calculating the covariance matrix
+cov = np.cov(X.T)
+# Finding eigenvalues and eigenvectors of cov matrix
+eigen_values, eigen_vectors = np.linalg.eigh(cov)
+print("Eigenvalues:\n",eigen_values)
+print("Eigenvectors:\n",eigen_vectors)
+\end{lstlisting}
+\begin{lstlisting}
+# Printing principal components
+print("First principal component: \n",eigen_vectors[:,2])
+print("Second principal component: \n",eigen_vectors[:,1])
+print("Third principal component: \n",eigen_vectors[:,0])
+\end{lstlisting}
+\begin{lstlisting}
+# Using two first principal components 
+projmatrix = np.zeros((3,2))
+projmatrix[:,0] = eigen_vectors[:,0]
+projmatrix[:,1] = eigen_vectors[:,2]
+
+# Reducing dataset to 2 dimensions:
+X_red = (X@projmatrix).T
+print(X_red)
+\end{lstlisting}
+
+\subsection*{Key points}
+\begin{itemize}
+\item It assumes correlation among the features. If the features are not correlated the algorithm may not be useful
+\item Standardizing the features is necessary as the algorithm is sensitive to the scale.
+\item It assumes linear relationship between features and does not work well for non linear relationships.
+\item It is a statistical process which acts as a tool in EDA(Exploratory data analysis).
+\item PCA is not robust to outliers.
+\item Since the reduced data matrix has features as linear combination of original features, it lacks interpret-ability.
+\item It helps in increasing model performance for high dimensional data regression problems and prevents over fitting.
+\end{itemize}
+
+
+
+
+
+\end{document}
