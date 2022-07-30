@@ -162,8 +162,56 @@ We achieve this using gradient descent stated in the algorithm above.
 \end{itemize}
 \end{enumerate}
 
+\subsection*{Key Points}
+\begin{itemize}
+\item There are three parameters: Perplexity, iteration, learning rate, and momentum.
+\item Perplexity is is used for choosing the standard deviation $\sigma_i$ of the Gaussian representing the conditional distribution in the high-dimensional space.It is viewed as the number of effective nearest neighbours.
+\item It is very useful for high dimensional datasets.
+\item It performs better than linear dimensionality reduction methods.
+\item Mathematically, it has lot of computations. This makes the algorithm to run slow.
+\end{itemize}
+
+\subsection*{Questions}
+
+\begin{questions}
+\question[] What is the formula for perplexity?\\
+\begin{Solution}
+\begin{align*}
+\text{Perp} = {}& 2^H(P_{j|i})
+\end{align*}
+where H is Shannon Entropy and given by $H(P) = \sum_i -P_i log(P_i)$
+\end{Solution}
+\question[] Does the result for a particular dataset always same?\\
+\begin{Solution}
+No, it is a stochastic algorithm. Since it involves randomization, the plot differs if we run it multiple times.
+\end{Solution}
+
+\question[] Pick the correct choice.
+\begin{choices}
+\choice t-SNE reduces crowding problem.
+\choice t-SNE leads to crowding problem.
+\end{choices}
+\begin{Solution}
+A. t-SNE solves crowding problem.
+\end{Solution}
 
 
+\question[] 
+t-SNE measures distance between \rule{2cm}{0.15mm}\\
+\begin{Solution}
+conditional distributions of data in high and low dimensional space
+\end{Solution}
+
+\question[] Can we embed new points using the algorithm?
+
+\begin{Solution}
+No
+\end{Solution}
+
+
+
+
+\end{questions}
 
 
 
