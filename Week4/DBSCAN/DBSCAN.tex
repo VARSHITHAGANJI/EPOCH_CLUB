@@ -306,11 +306,58 @@ plt.show()
 \caption{DBSCAN Clustering}
 \includegraphics[width = 0.6\textwidth]{../images/DBSCAN_plot}
 \end{figure}
+\newpage
 \begin{figure}[!h]
 \centering
 \caption{K-means Clustering}
 \includegraphics[width = 0.6\textwidth]{../images/K-Means_plot}
 \end{figure}
+
+\subsection*{Questions}
+
+\begin{questions}
+\question[] 
+When will DBSCAN fail?
+\begin{choices}
+\choice For low dimensional data
+\choice When density drops between clusters
+\end{choices}
+\begin{Solution}
+B. When density drops between clusters
+\end{Solution}
+
+
+\question[] State the two parameters of the model.\\
+\begin{Solution}
+Eps and MinPts
+\end{Solution}
+
+
+\question[] Which of the following is false?
+\begin{choices}
+\choice It is sensitive to parameters
+\choice We need to specify the number of clusters
+\end{choices}
+\begin{Solution}
+B. We need to specify the number of clusters
+\end{Solution}
+
+
+
+\question[] Best case time complexity of the algorithm.\\
+\begin{Solution}
+If we use indexing to store the distances, time complexity turns out 
+$\mathcal{O}(\text{nlogn})$
+\end{Solution}
+
+
+
+\question[] What happens if MinPts is too large?\\
+\begin{Solution}
+Small clusters may combine to give big cluster which ignores the small clusters.
+\end{Solution}
+
+\end{questions}
 
 
 \end{document}
